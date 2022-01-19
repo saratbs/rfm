@@ -1,0 +1,9 @@
+{
+	"name": "df-dmp-rg",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f018c087-bafb-4e11-b758-6d4b193c194c",
+		"tenantId": "2bb51c06-af9b-42c5-8bf5-3c3b7b10850b"
+	}
+}
