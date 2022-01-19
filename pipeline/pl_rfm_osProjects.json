@@ -21,12 +21,12 @@
 						"partitionOption": "None"
 					},
 					"sink": {
-						"type": "JsonSink",
+						"type": "ParquetSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "JsonWriteSettings"
+							"type": "ParquetWriteSettings"
 						}
 					},
 					"enableStaging": false
@@ -39,7 +39,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "os_projects",
+						"referenceName": "os_project_list",
 						"type": "DatasetReference"
 					}
 				]
