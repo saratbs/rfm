@@ -26,7 +26,7 @@
 						"referenceName": "ds_rfm_tablelist",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			},
 			{
