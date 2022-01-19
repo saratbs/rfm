@@ -1,0 +1,7 @@
+{
+	"name": "pl_rfm_copy_alltables",
+	"properties": {
+		"description": "Copy all tables data from RFM database to datastore",
+		"annotations": []
+	}
+}
