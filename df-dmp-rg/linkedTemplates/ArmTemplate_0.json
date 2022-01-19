@@ -1,0 +1,289 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "df-dmp-rg"
+		},
+		"LS_raw_data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_raw_data'"
+		},
+		"LS_RFM_DEVL_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_RFM_DEVL'"
+		},
+		"LS_raw_data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://datalake2022.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_raw_data')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_raw_data_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_raw_data_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SelfHostedIntegrationRuntime')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/os_projects')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_raw_data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "rfm",
+						"fileSystem": "raw"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_raw_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_RFM_DEVL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "RFM DEVL Linked service",
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_RFM_DEVL_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "SelfHostedIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SelfHostedIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/rfm_osprojects')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_RFM_DEVL",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "OS_Project_Overview_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "OS_Scenario_ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Project_Flag",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Year_Submitted",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "Project_Name",
+						"type": "varchar"
+					},
+					{
+						"name": "OSR_Project_Number",
+						"type": "varchar"
+					},
+					{
+						"name": "Operator",
+						"type": "varchar"
+					},
+					{
+						"name": "Project_Area_Region",
+						"type": "varchar"
+					},
+					{
+						"name": "Scenario",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Phase",
+						"type": "varchar"
+					},
+					{
+						"name": "Technology",
+						"type": "varchar"
+					},
+					{
+						"name": "Density",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 12
+					},
+					{
+						"name": "Sulphur",
+						"type": "varchar"
+					},
+					{
+						"name": "TAN",
+						"type": "varchar"
+					},
+					{
+						"name": "Net_Cumulative_Balance",
+						"type": "money",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Capacity_Bitumen",
+						"type": "decimal",
+						"precision": 16,
+						"scale": 1
+					},
+					{
+						"name": "Capacity_Steam",
+						"type": "decimal",
+						"precision": 16,
+						"scale": 1
+					},
+					{
+						"name": "Project_Status",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Project_Suspended/Cancelled/Deferred",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Project_Indefinitely",
+						"type": "nvarchar"
+					},
+					{
+						"name": "Project_Source",
+						"type": "nvarchar"
+					},
+					{
+						"name": "ProjectPayoutDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "AdditionalNotes",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "OS_Project"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_RFM_DEVL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_rfm_osProjects')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "OS PRojects",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "JsonSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "JsonWriteSettings"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "rfm_osprojects",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "os_projects",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2022-01-19T18:12:22Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/rfm_osprojects')]",
+				"[concat(variables('factoryId'), '/datasets/os_projects')]"
+			]
+		}
+	]
+}
