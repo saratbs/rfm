@@ -66,12 +66,14 @@
 									"partitionOption": "None"
 								},
 								"sink": {
-									"type": "ParquetSink",
+									"type": "DelimitedTextSink",
 									"storeSettings": {
 										"type": "AzureBlobFSWriteSettings"
 									},
 									"formatSettings": {
-										"type": "ParquetWriteSettings"
+										"type": "DelimitedTextWriteSettings",
+										"quoteAllText": true,
+										"fileExtension": ".txt"
 									}
 								},
 								"enableStaging": false,
@@ -102,14 +104,8 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "ParquetTable",
-									"type": "DatasetReference",
-									"parameters": {
-										"FileName": {
-											"value": "@concat(item().TABLE_SCHEMA,'_',item().Table_Name, '.parquet')",
-											"type": "Expression"
-										}
-									}
+									"referenceName": "CSVTable",
+									"type": "DatasetReference"
 								}
 							]
 						}
