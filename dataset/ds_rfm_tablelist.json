@@ -1,0 +1,12 @@
+{
+	"name": "ds_rfm_tablelist",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_RFM_DEVL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
