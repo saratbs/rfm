@@ -11,6 +11,9 @@
 		"LS_raw_data_accountKey": {
 			"value": ""
 		},
+		"LS_blb_input_connectionString": {
+			"value": ""
+		},
 		"LS_raw_data_properties_typeProperties_url": {
 			"value": "https://datalake2022.dfs.core.windows.net"
 		},
