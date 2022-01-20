@@ -15,8 +15,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "@dataset().FileName",
-				"folderPath": "rfm",
+				"fileName": {
+					"value": "@dataset().FileName",
+					"type": "Expression"
+				},
+				"folderPath": "rfm/csv",
 				"fileSystem": "raw"
 			},
 			"columnDelimiter": ",",
