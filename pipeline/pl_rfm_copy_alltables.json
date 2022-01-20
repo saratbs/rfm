@@ -105,7 +105,13 @@
 							"outputs": [
 								{
 									"referenceName": "CSVTable",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@concat(item().schema_name,'_',item().table_name,'.csv')",
+											"type": "Expression"
+										}
+									}
 								}
 							]
 						}
