@@ -12,9 +12,21 @@
 					"name": "RFMCSVFile"
 				}
 			],
-			"sinks": [],
-			"transformations": [],
-			"script": "source(output(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string,\n\t\tColumn_5 as string,\n\t\tColumn_6 as string,\n\t\tColumn_7 as string,\n\t\tColumn_8 as string,\n\t\tColumn_9 as string,\n\t\tColumn_10 as string,\n\t\tColumn_11 as string,\n\t\tColumn_12 as string,\n\t\tColumn_13 as string,\n\t\tColumn_14 as string,\n\t\tColumn_15 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> RFMCSVFile"
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_output",
+						"type": "DatasetReference"
+					},
+					"name": "RFMOutFile"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Select1"
+				}
+			],
+			"script": "source(output(\n\t\tProductionPeriod as string,\n\t\t{ParPrice_L_CAD/m3} as double,\n\t\t{ParPrice_M_CAD/m3} as double,\n\t\t{ParPrice_H_CAD/m3} as double,\n\t\t{ParPrice_UH_CAD/m3} as double,\n\t\t{C2RefPriceSpec_CAD/GJ} as double,\n\t\t{C3RefPriceMix_CAD/M3} as double,\n\t\t{C4RefPriceMix_CAD/M3} as double,\n\t\t{C5RefPriceMix_CAD/M3} as double,\n\t\t{C3RefPriceSpec_CAD/M3} as double,\n\t\t{C4RefPriceSpec_CAD/M3} as double,\n\t\t{C5RefPriceSpec_CAD/M3} as double,\n\t\tSysStartTime as string,\n\t\tSysEndTime as string,\n\t\t{C1ARP_CAD/GJ} as double\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> RFMCSVFile\nRFMCSVFile select(mapColumn(\n\t\tProductionPeriod,\n\t\tParPrice_L_CAD_m3 = {ParPrice_L_CAD/m3},\n\t\tParPrice_M_CAD_m3 = {ParPrice_M_CAD/m3},\n\t\tParPrice_H_CAD_m3 = {ParPrice_H_CAD/m3},\n\t\tParPrice_UH_CAD_m3 = {ParPrice_UH_CAD/m3},\n\t\tC2RefPriceSpec_CAD_GJ = {C2RefPriceSpec_CAD/GJ},\n\t\tC3RefPriceMix_CAD_M3 = {C3RefPriceMix_CAD/M3},\n\t\tC4RefPriceMix_CAD_M3 = {C4RefPriceMix_CAD/M3},\n\t\tC5RefPriceMix_CAD_M3 = {C5RefPriceMix_CAD/M3},\n\t\tC3RefPriceSpec_CAD_M3 = {C3RefPriceSpec_CAD/M3},\n\t\tC4RefPriceSpec_CAD_M3 = {C4RefPriceSpec_CAD/M3},\n\t\tC5RefPriceSpec_CAD_M3 = {C5RefPriceSpec_CAD/M3},\n\t\tC1ARP_CAD_GJ = {C1ARP_CAD/GJ}\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RFMOutFile"
 		}
 	}
 }
