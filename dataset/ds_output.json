@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "ParPrice.csv",
 				"container": "incoming"
 			},
 			"columnDelimiter": ",",
