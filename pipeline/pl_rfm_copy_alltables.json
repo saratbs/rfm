@@ -108,7 +108,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
-											"value": "@concat(item().schema_name,'_',item().table_name,'.csv')",
+											"value": "@concat(item().table_schema,'_',item().table_name,'.csv')",
 											"type": "Expression"
 										}
 									}
