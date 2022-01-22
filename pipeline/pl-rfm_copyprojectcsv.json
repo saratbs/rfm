@@ -1,0 +1,7 @@
+{
+	"name": "pl-rfm_copyprojectcsv",
+	"properties": {
+		"description": "Copies OS project data from csv file to Azure SQL table",
+		"annotations": []
+	}
+}
