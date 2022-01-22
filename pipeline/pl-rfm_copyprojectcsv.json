@@ -36,8 +36,9 @@
 						"mappings": [
 							{
 								"source": {
+									"name": "OS_Project_Overview_ID",
 									"type": "String",
-									"ordinal": 1
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "OSProjectKey",
@@ -47,8 +48,9 @@
 							},
 							{
 								"source": {
+									"name": "OS_Scenario_ID",
 									"type": "String",
-									"ordinal": 2
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "OSScenarioId",
@@ -58,8 +60,9 @@
 							},
 							{
 								"source": {
+									"name": "Project_Flag",
 									"type": "String",
-									"ordinal": 3
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "ProjectFlag",
@@ -68,10 +71,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 4
-								},
 								"sink": {
 									"name": "YearSubmitted",
 									"type": "Int32",
@@ -79,10 +78,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 5
-								},
 								"sink": {
 									"name": "ProjectName",
 									"type": "String",
@@ -90,10 +85,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 6
-								},
 								"sink": {
 									"name": "OSRNumber",
 									"type": "String",
@@ -102,8 +93,9 @@
 							},
 							{
 								"source": {
+									"name": "Operator",
 									"type": "String",
-									"ordinal": 7
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Operator",
@@ -112,10 +104,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 8
-								},
 								"sink": {
 									"name": "ProjectAreaRegion",
 									"type": "String",
@@ -124,8 +112,9 @@
 							},
 							{
 								"source": {
+									"name": "Scenario",
 									"type": "String",
-									"ordinal": 9
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Scenario",
@@ -135,8 +124,9 @@
 							},
 							{
 								"source": {
+									"name": "Phase",
 									"type": "String",
-									"ordinal": 10
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Phase",
@@ -146,8 +136,9 @@
 							},
 							{
 								"source": {
+									"name": "Technology",
 									"type": "String",
-									"ordinal": 11
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Technology",
@@ -157,8 +148,9 @@
 							},
 							{
 								"source": {
+									"name": "Density",
 									"type": "String",
-									"ordinal": 12
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Density",
@@ -170,8 +162,9 @@
 							},
 							{
 								"source": {
+									"name": "Sulphur",
 									"type": "String",
-									"ordinal": 13
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Sulphur",
@@ -183,8 +176,9 @@
 							},
 							{
 								"source": {
+									"name": "TAN",
 									"type": "String",
-									"ordinal": 14
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "TAN",
@@ -195,10 +189,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 15
-								},
 								"sink": {
 									"name": "NetCumulativeBalance",
 									"type": "Decimal",
@@ -208,10 +198,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 16
-								},
 								"sink": {
 									"name": "BitumenCapacity",
 									"type": "Int64",
@@ -219,10 +205,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 17
-								},
 								"sink": {
 									"name": "StreamCapacity",
 									"type": "Int64",
@@ -230,10 +212,6 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 18
-								},
 								"sink": {
 									"name": "ProjectStatus",
 									"type": "String",
@@ -241,53 +219,43 @@
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 19
-								},
 								"sink": {
 									"name": "Project_SusCancDeffered",
-									"type": "Boolean",
-									"physicalType": "bit"
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 20
-								},
 								"sink": {
 									"name": "ProjectIndefinitely",
-									"type": "Boolean",
-									"physicalType": "bit"
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
-								"source": {
-									"type": "String",
-									"ordinal": 21
-								},
 								"sink": {
 									"name": "ProjectSource",
-									"type": "Boolean",
-									"physicalType": "bit"
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
 								"source": {
+									"name": "Deleted",
 									"type": "String",
-									"ordinal": 22
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "Deleted",
-									"type": "Boolean",
-									"physicalType": "bit"
+									"type": "String",
+									"physicalType": "varchar"
 								}
 							},
 							{
 								"source": {
+									"name": "DeletedDate",
 									"type": "String",
-									"ordinal": 23
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "DeletedDate",
@@ -297,8 +265,9 @@
 							},
 							{
 								"source": {
+									"name": "AdditionalNotes",
 									"type": "String",
-									"ordinal": 24
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "AdditionalNotes",
@@ -308,8 +277,9 @@
 							},
 							{
 								"source": {
+									"name": "ProjectPayoutDate",
 									"type": "String",
-									"ordinal": 25
+									"physicalType": "String"
 								},
 								"sink": {
 									"name": "ProjectPayoutDate",

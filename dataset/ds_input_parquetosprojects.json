@@ -1,0 +1,130 @@
+{
+	"name": "ds_input_parquetosprojects",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_raw_data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dbo__OS_Project.parquet",
+				"folderPath": "rfm/parquet",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "OS_Project_Overview_ID",
+				"type": "INT32"
+			},
+			{
+				"name": "OS_Scenario_ID",
+				"type": "INT32"
+			},
+			{
+				"name": "Project_Flag",
+				"type": "UTF8"
+			},
+			{
+				"name": "Year_Submitted",
+				"type": "INT32"
+			},
+			{
+				"name": "Project_Name",
+				"type": "UTF8"
+			},
+			{
+				"name": "OSR_Project_Number",
+				"type": "UTF8"
+			},
+			{
+				"name": "Operator",
+				"type": "UTF8"
+			},
+			{
+				"name": "Project_Area_Region",
+				"type": "UTF8"
+			},
+			{
+				"name": "Scenario",
+				"type": "UTF8"
+			},
+			{
+				"name": "Phase",
+				"type": "UTF8"
+			},
+			{
+				"name": "Technology",
+				"type": "UTF8"
+			},
+			{
+				"name": "Density",
+				"type": "DECIMAL",
+				"precision": 18,
+				"scale": 12
+			},
+			{
+				"name": "Sulphur",
+				"type": "UTF8"
+			},
+			{
+				"name": "TAN",
+				"type": "UTF8"
+			},
+			{
+				"name": "Net_Cumulative_Balance",
+				"type": "DECIMAL",
+				"precision": 19,
+				"scale": 4
+			},
+			{
+				"name": "Capacity_Bitumen",
+				"type": "DECIMAL",
+				"precision": 16,
+				"scale": 1
+			},
+			{
+				"name": "Capacity_Steam",
+				"type": "DECIMAL",
+				"precision": 16,
+				"scale": 1
+			},
+			{
+				"name": "Project_Status",
+				"type": "UTF8"
+			},
+			{
+				"name": "Project_Suspended/Cancelled/Deferred",
+				"type": "UTF8"
+			},
+			{
+				"name": "Project_Indefinitely",
+				"type": "UTF8"
+			},
+			{
+				"name": "Project_Source",
+				"type": "UTF8"
+			},
+			{
+				"name": "Deleted",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "DeletedDate",
+				"type": "INT96"
+			},
+			{
+				"name": "AdditionalNotes",
+				"type": "UTF8"
+			},
+			{
+				"name": "ProjectPayoutDate",
+				"type": "INT96"
+			}
+		]
+	}
+}
