@@ -128,7 +128,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "OSProjects1"
+			"table": "OSProjects"
 		}
 	}
 }
