@@ -5,13 +5,19 @@
 		"factoryName": {
 			"value": "df-dmp-rg"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
 		"LS_RFM_DEVL_connectionString": {
+			"value": ""
+		},
+		"LS_blb_input_connectionString": {
 			"value": ""
 		},
 		"LS_raw_data_accountKey": {
 			"value": ""
 		},
-		"LS_blb_input_connectionString": {
+		"LS_rfmSQLDatabase_connectionString": {
 			"value": ""
 		},
 		"LS_raw_data_properties_typeProperties_url": {

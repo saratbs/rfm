@@ -7,17 +7,25 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-dmp-rg"
 		},
+		"AzureSqlDatabase1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
+		},
 		"LS_RFM_DEVL_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_RFM_DEVL'"
+		},
+		"LS_blb_input_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_blb_input'"
 		},
 		"LS_raw_data_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_raw_data'"
 		},
-		"LS_blb_input_connectionString": {
+		"LS_rfmSQLDatabase_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'LS_blb_input'"
+			"metadata": "Secure string for 'connectionString' of 'LS_rfmSQLDatabase'"
 		},
 		"LS_raw_data_properties_typeProperties_url": {
 			"type": "string",
@@ -50,11 +58,17 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"LS_raw_data_accountKey": {
-						"value": "[parameters('LS_raw_data_accountKey')]"
+					"AzureSqlDatabase1_connectionString": {
+						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
 					},
 					"LS_blb_input_connectionString": {
 						"value": "[parameters('LS_blb_input_connectionString')]"
+					},
+					"LS_raw_data_accountKey": {
+						"value": "[parameters('LS_raw_data_accountKey')]"
+					},
+					"LS_rfmSQLDatabase_connectionString": {
+						"value": "[parameters('LS_rfmSQLDatabase_connectionString')]"
 					},
 					"LS_RFM_DEVL_connectionString": {
 						"value": "[parameters('LS_RFM_DEVL_connectionString')]"
@@ -65,6 +79,26 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "df-dmp-rg_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'df-dmp-rg_ArmTemplate_0')]"
+			]
 		}
 	]
 }

@@ -7,13 +7,21 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "df-dmp-rg"
 		},
-		"LS_raw_data_accountKey": {
+		"AzureSqlDatabase1_connectionString": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'LS_raw_data'"
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
 		"LS_blb_input_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_blb_input'"
+		},
+		"LS_raw_data_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_raw_data'"
+		},
+		"LS_rfmSQLDatabase_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_rfmSQLDatabase'"
 		},
 		"LS_RFM_DEVL_connectionString": {
 			"type": "secureString",
@@ -28,6 +36,32 @@
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_blb_input')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_blb_input_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/LS_raw_data')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
@@ -46,25 +80,25 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_rfmSQLDatabase')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlMI",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_rfmSQLDatabase_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/SelfHostedIntegrationRuntime')]",
 			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"type": "SelfHosted",
 				"typeProperties": {}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_blb_input')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_blb_input_connectionString')]"
-				}
 			},
 			"dependsOn": []
 		},
@@ -106,6 +140,145 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_Destination_Db')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "OSProjectKey",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "OSScenarioId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProjectFlag",
+						"type": "bit"
+					},
+					{
+						"name": "YearSubmitted",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ProjectName",
+						"type": "varchar"
+					},
+					{
+						"name": "OSRNumber",
+						"type": "varchar"
+					},
+					{
+						"name": "Operator",
+						"type": "varchar"
+					},
+					{
+						"name": "ProjectAreaRegion",
+						"type": "varchar"
+					},
+					{
+						"name": "Scenario",
+						"type": "varchar"
+					},
+					{
+						"name": "Phase",
+						"type": "varchar"
+					},
+					{
+						"name": "Technology",
+						"type": "varchar"
+					},
+					{
+						"name": "Density",
+						"type": "decimal",
+						"precision": 18,
+						"scale": 0
+					},
+					{
+						"name": "Sulphur",
+						"type": "decimal",
+						"precision": 6,
+						"scale": 4
+					},
+					{
+						"name": "TAN",
+						"type": "decimal",
+						"precision": 5,
+						"scale": 2
+					},
+					{
+						"name": "NetCumulativeBalance",
+						"type": "decimal",
+						"precision": 13,
+						"scale": 2
+					},
+					{
+						"name": "BitumenCapacity",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "StreamCapacity",
+						"type": "bigint",
+						"precision": 19
+					},
+					{
+						"name": "ProjectStatus",
+						"type": "varchar"
+					},
+					{
+						"name": "Project_SusCancDeffered",
+						"type": "bit"
+					},
+					{
+						"name": "ProjectIndefinitely",
+						"type": "bit"
+					},
+					{
+						"name": "ProjectSource",
+						"type": "bit"
+					},
+					{
+						"name": "Deleted",
+						"type": "bit"
+					},
+					{
+						"name": "DeletedDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					},
+					{
+						"name": "AdditionalNotes",
+						"type": "varchar"
+					},
+					{
+						"name": "ProjectPayoutDate",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "OSProjects"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ParquetTable')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -137,26 +310,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_raw_data')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/LS_RFM_DEVL')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "RFM DEVL Linked service",
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"connectionString": "[parameters('LS_RFM_DEVL_connectionString')]"
-				},
-				"connectVia": {
-					"referenceName": "SelfHostedIntegrationRuntime",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/SelfHostedIntegrationRuntime')]"
 			]
 		},
 		{
@@ -235,6 +388,246 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_input_csvosprojects')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_raw_data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dbo__OS_Project.csv",
+						"folderPath": "rfm/csv",
+						"fileSystem": "raw"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					},
+					{
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_raw_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_input_parquetosprojects')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_raw_data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "dbo__OS_Project.parquet",
+						"folderPath": "rfm/parquet",
+						"fileSystem": "raw"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": [
+					{
+						"name": "OS_Project_Overview_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "OS_Scenario_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "Project_Flag",
+						"type": "UTF8"
+					},
+					{
+						"name": "Year_Submitted",
+						"type": "INT32"
+					},
+					{
+						"name": "Project_Name",
+						"type": "UTF8"
+					},
+					{
+						"name": "OSR_Project_Number",
+						"type": "UTF8"
+					},
+					{
+						"name": "Operator",
+						"type": "UTF8"
+					},
+					{
+						"name": "Project_Area_Region",
+						"type": "UTF8"
+					},
+					{
+						"name": "Scenario",
+						"type": "UTF8"
+					},
+					{
+						"name": "Phase",
+						"type": "UTF8"
+					},
+					{
+						"name": "Technology",
+						"type": "UTF8"
+					},
+					{
+						"name": "Density",
+						"type": "DECIMAL",
+						"precision": 18,
+						"scale": 12
+					},
+					{
+						"name": "Sulphur",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAN",
+						"type": "UTF8"
+					},
+					{
+						"name": "Net_Cumulative_Balance",
+						"type": "DECIMAL",
+						"precision": 19,
+						"scale": 4
+					},
+					{
+						"name": "Capacity_Bitumen",
+						"type": "DECIMAL",
+						"precision": 16,
+						"scale": 1
+					},
+					{
+						"name": "Capacity_Steam",
+						"type": "DECIMAL",
+						"precision": 16,
+						"scale": 1
+					},
+					{
+						"name": "Project_Status",
+						"type": "UTF8"
+					},
+					{
+						"name": "Project_Suspended/Cancelled/Deferred",
+						"type": "UTF8"
+					},
+					{
+						"name": "Project_Indefinitely",
+						"type": "UTF8"
+					},
+					{
+						"name": "Project_Source",
+						"type": "UTF8"
+					},
+					{
+						"name": "Deleted",
+						"type": "BOOLEAN"
+					},
+					{
+						"name": "DeletedDate",
+						"type": "INT96"
+					},
+					{
+						"name": "AdditionalNotes",
+						"type": "UTF8"
+					},
+					{
+						"name": "ProjectPayoutDate",
+						"type": "INT96"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_raw_data')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/ds_output')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -259,6 +652,787 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_blb_input')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_RFM_DEVL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "RFM DEVL Linked service",
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_RFM_DEVL_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "SelfHostedIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SelfHostedIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl-rfm_copyprojectcsv')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copies OS project data from csv file to Azure SQL table",
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "OS_Project_Overview_ID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OSProjectKey",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "OS_Scenario_ID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OSScenarioId",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Flag",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectFlag",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Year_Submitted",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "YearSubmitted",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectName",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OSR_Project_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OSRNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Operator",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Operator",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Area_Region",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectAreaRegion",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Scenario",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Scenario",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Phase",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Phase",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Technology",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Technology",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Density",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Density",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 18
+										}
+									},
+									{
+										"source": {
+											"name": "Sulphur",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Sulphur",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "TAN",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "TAN",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Net_Cumulative_Balance",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "NetCumulativeBalance",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 19
+										}
+									},
+									{
+										"source": {
+											"name": "Capacity_Bitumen",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BitumenCapacity",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 1,
+											"precision": 16
+										}
+									},
+									{
+										"source": {
+											"name": "Capacity_Steam",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "StreamCapacity",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 1,
+											"precision": 16
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Status",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectStatus",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Suspended/Cancelled/Deferred",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Project_SusCancDeffered",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Indefinitely",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectIndefinitely",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Source",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectSource",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Deleted",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Deleted",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "DeletedDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DeletedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "AdditionalNotes",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "AdditionalNotes",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ProjectPayoutDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectPayoutDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_input_csvosprojects",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "LS_Destination_Db",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_input_csvosprojects')]",
+				"[concat(variables('factoryId'), '/datasets/LS_Destination_Db')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl-rfm_copyprojectparquet')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Copies OS project data from csv file to Azure SQL table",
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "OS_Project_Overview_ID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OSProjectKey",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "OS_Scenario_ID",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OSScenarioId",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Flag",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectFlag",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Year_Submitted",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "YearSubmitted",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Name",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectName",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "OSR_Project_Number",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "OSRNumber",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Operator",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Operator",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Area_Region",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectAreaRegion",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Scenario",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Scenario",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Phase",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Phase",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Technology",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Technology",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Density",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Density",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 18
+										}
+									},
+									{
+										"source": {
+											"name": "Sulphur",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Sulphur",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "TAN",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "TAN",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Net_Cumulative_Balance",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "NetCumulativeBalance",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 4,
+											"precision": 19
+										}
+									},
+									{
+										"source": {
+											"name": "Capacity_Bitumen",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "BitumenCapacity",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 1,
+											"precision": 16
+										}
+									},
+									{
+										"source": {
+											"name": "Capacity_Steam",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "StreamCapacity",
+											"type": "Decimal",
+											"physicalType": "decimal",
+											"scale": 1,
+											"precision": 16
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Status",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectStatus",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Suspended/Cancelled/Deferred",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Project_SusCancDeffered",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Indefinitely",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectIndefinitely",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Project_Source",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectSource",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "Deleted",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "Deleted",
+											"type": "Boolean",
+											"physicalType": "bit"
+										}
+									},
+									{
+										"source": {
+											"name": "DeletedDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "DeletedDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									},
+									{
+										"source": {
+											"name": "AdditionalNotes",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "AdditionalNotes",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "ProjectPayoutDate",
+											"type": "String",
+											"physicalType": "String"
+										},
+										"sink": {
+											"name": "ProjectPayoutDate",
+											"type": "DateTime",
+											"physicalType": "datetime"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_input_parquetosprojects",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "LS_Destination_Db",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_input_parquetosprojects')]",
+				"[concat(variables('factoryId'), '/datasets/LS_Destination_Db')]"
 			]
 		},
 		{
@@ -350,6 +1524,53 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_input')]",
 				"[concat(variables('factoryId'), '/datasets/ds_output')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl-df_example1')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "df_test1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "df_test1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"RFMCSVFile": {},
+									"RFMOutFile": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/df_test1')]"
 			]
 		},
 		{
@@ -486,187 +1707,6 @@
 				"[concat(variables('factoryId'), '/datasets/ds_rfm_tablelist')]",
 				"[concat(variables('factoryId'), '/datasets/SQLTable')]",
 				"[concat(variables('factoryId'), '/datasets/CSVTable')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pl_rfm_copy_alltables_parquet')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Copy all tables data from RFM database to datastore",
-				"activities": [
-					{
-						"name": "Get Table List",
-						"type": "Lookup",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlServerSource",
-								"sqlReaderQuery": "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "ds_rfm_tablelist",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "For each table",
-						"type": "ForEach",
-						"dependsOn": [
-							{
-								"activity": "Get Table List",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@activity('Get Table List').output.value",
-								"type": "Expression"
-							},
-							"activities": [
-								{
-									"name": "Copy Table Data",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "7.00:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "SqlServerSource",
-											"queryTimeout": "02:00:00",
-											"partitionOption": "None"
-										},
-										"sink": {
-											"type": "ParquetSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "ParquetWriteSettings"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "SQLTable",
-											"type": "DatasetReference",
-											"parameters": {
-												"TableName": {
-													"value": "@item().Table_Name",
-													"type": "Expression"
-												},
-												"SchemaName": {
-													"value": "@item().TABLE_SCHEMA",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "ParquetTable",
-											"type": "DatasetReference",
-											"parameters": {
-												"FileName": {
-													"value": "@concat(item().table_schema,'_',item().table_name,'.parquet')",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_rfm_tablelist')]",
-				"[concat(variables('factoryId'), '/datasets/SQLTable')]",
-				"[concat(variables('factoryId'), '/datasets/ParquetTable')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pl-df_example1')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "df_test1",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "1.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "df_test1",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"RFMCSVFile": {},
-									"RFMOutFile": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/df_test1')]"
 			]
 		}
 	]
