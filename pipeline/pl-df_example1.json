@@ -27,6 +27,9 @@
 				}
 			}
 		],
+		"folder": {
+			"name": "Copy Table"
+		},
 		"annotations": []
 	}
 }

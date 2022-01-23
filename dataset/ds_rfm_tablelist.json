@@ -5,6 +5,9 @@
 			"referenceName": "LS_RFM_DEVL",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Copy Table"
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": []
