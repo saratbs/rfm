@@ -1,0 +1,370 @@
+{
+	"name": "pl-rfm_copyprojectcsv",
+	"properties": {
+		"description": "Copies OS project data from csv file to Azure SQL table",
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "OS_Project_Overview_ID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OSProjectKey",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "OS_Scenario_ID",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OSScenarioId",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Flag",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectFlag",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Year_Submitted",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "YearSubmitted",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Name",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "OSR_Project_Number",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "OSRNumber",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Operator",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Operator",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Area_Region",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectAreaRegion",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Scenario",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Scenario",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Phase",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Phase",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Technology",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Technology",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Density",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Density",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 4,
+									"precision": 18
+								}
+							},
+							{
+								"source": {
+									"name": "Sulphur",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Sulphur",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "TAN",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "TAN",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Net_Cumulative_Balance",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "NetCumulativeBalance",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 4,
+									"precision": 19
+								}
+							},
+							{
+								"source": {
+									"name": "Capacity_Bitumen",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "BitumenCapacity",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 1,
+									"precision": 16
+								}
+							},
+							{
+								"source": {
+									"name": "Capacity_Steam",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "StreamCapacity",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 1,
+									"precision": 16
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Status",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectStatus",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Suspended/Cancelled/Deferred",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Project_SusCancDeffered",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Indefinitely",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectIndefinitely",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Project_Source",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectSource",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Deleted",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "Deleted",
+									"type": "Boolean",
+									"physicalType": "bit"
+								}
+							},
+							{
+								"source": {
+									"name": "DeletedDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "DeletedDate",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							},
+							{
+								"source": {
+									"name": "AdditionalNotes",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "AdditionalNotes",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ProjectPayoutDate",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "ProjectPayoutDate",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_input_csvosprojects",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "LS_Destination_Db",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
