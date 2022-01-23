@@ -1,0 +1,21 @@
+{
+	"name": "parOSProjects",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_raw_data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dbo__OS_Project.parquet",
+				"folderPath": "rfm/parquet",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
