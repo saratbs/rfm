@@ -1,5 +1,5 @@
 {
-	"name": "pl-rfm_copyprojectcsv",
+	"name": "pl-rfm_copyprojectparquet",
 	"properties": {
 		"description": "Copies OS project data from csv file to Azure SQL table",
 		"activities": [
@@ -17,14 +17,11 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "ParquetSource",
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
 						}
 					},
 					"sink": {
@@ -353,7 +350,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_input_csvosprojects",
+						"referenceName": "ds_input_parquetosprojects",
 						"type": "DatasetReference"
 					}
 				],
