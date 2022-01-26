@@ -5,6 +5,14 @@
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"currentDateTime": {
+				"type": "object"
+			},
+			"plRunId": {
+				"type": "object"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
