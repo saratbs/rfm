@@ -24,7 +24,7 @@
 								"type": "Expression"
 							},
 							"LastUpdateTime": {
-								"value": "'@{utcNow()}'",
+								"value": "@pipeline().TriggerTime",
 								"type": "Expression"
 							}
 						}
