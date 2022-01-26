@@ -1,0 +1,24 @@
+{
+	"name": "ds_parPhases",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_raw_data",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "rfm"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dbo__OS_Phase.parquet",
+				"folderPath": "rfm/parquet",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
