@@ -1,0 +1,83 @@
+{
+	"name": "ts_target_scenario",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "rfm/target"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OSScenarioKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OSRNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "Scenario",
+				"type": "varchar"
+			},
+			{
+				"name": "YearSubmitted",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Version",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AsOfDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "Comments",
+				"type": "varchar"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "CreatedBy",
+				"type": "varchar"
+			},
+			{
+				"name": "Deleted",
+				"type": "bit"
+			},
+			{
+				"name": "DeletedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LastUpdateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "RunId",
+				"type": "uniqueidentifier"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "OSScenaio"
+		}
+	}
+}
