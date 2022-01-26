@@ -1,0 +1,23 @@
+{
+	"name": "df_source_osproject",
+	"properties": {
+		"folder": {
+			"name": "rfm"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "parOSProjects",
+						"type": "DatasetReference"
+					},
+					"name": "SourceOSProjects"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceOSProjects"
+		}
+	}
+}
