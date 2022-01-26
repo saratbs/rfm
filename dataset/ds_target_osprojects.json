@@ -17,7 +17,7 @@
 				"precision": 10
 			},
 			{
-				"name": "OSScenarioId",
+				"name": "OSScenarioKey",
 				"type": "int",
 				"precision": 10
 			},
@@ -44,10 +44,6 @@
 			},
 			{
 				"name": "ProjectAreaRegion",
-				"type": "varchar"
-			},
-			{
-				"name": "Scenario",
 				"type": "varchar"
 			},
 			{
