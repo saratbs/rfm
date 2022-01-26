@@ -13,11 +13,22 @@
 						"type": "DatasetReference"
 					},
 					"name": "SourceOSProjects"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_parScenario",
+						"type": "DatasetReference"
+					},
+					"name": "SourceScenario"
 				}
 			],
 			"sinks": [],
-			"transformations": [],
-			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceOSProjects"
+			"transformations": [
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceOSProjects\nsource(output(\n\t\tOS_Scenario_ID as integer,\n\t\tOSR_Project_Number as string,\n\t\tScenario as string,\n\t\tYear_Submitted as integer,\n\t\tVersion as integer,\n\t\tAsOfDate as timestamp,\n\t\tComments as string,\n\t\tCreatedDate as timestamp,\n\t\tCreatedBy as string,\n\t\tDeleted as boolean,\n\t\tDeletedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceScenario\nSourceOSProjects, SourceScenario join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1"
 		}
 	}
 }
