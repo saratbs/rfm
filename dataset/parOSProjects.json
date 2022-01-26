@@ -5,6 +5,9 @@
 			"referenceName": "LS_raw_data",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "rfm"
+		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
