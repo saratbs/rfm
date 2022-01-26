@@ -1,0 +1,45 @@
+{
+	"name": "pl_copy_osprojects",
+	"properties": {
+		"activities": [
+			{
+				"name": "df_source_osproject",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "1.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "df_source_osproject",
+						"type": "DataFlowReference",
+						"parameters": {
+							"RunId": {
+								"value": "'@{pipeline().RunId}'",
+								"type": "Expression"
+							},
+							"LastUpdateTime": {
+								"value": "'@{utcNow()}'",
+								"type": "Expression"
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "rfm"
+		},
+		"annotations": []
+	}
+}
