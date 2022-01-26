@@ -1,0 +1,142 @@
+{
+	"name": "ds_target_osprojects",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OSProjectKey",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "OSScenarioId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProjectFlag",
+				"type": "varchar"
+			},
+			{
+				"name": "YearSubmitted",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProjectName",
+				"type": "varchar"
+			},
+			{
+				"name": "OSRNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "Operator",
+				"type": "varchar"
+			},
+			{
+				"name": "ProjectAreaRegion",
+				"type": "varchar"
+			},
+			{
+				"name": "Scenario",
+				"type": "varchar"
+			},
+			{
+				"name": "Phase",
+				"type": "varchar"
+			},
+			{
+				"name": "Technology",
+				"type": "varchar"
+			},
+			{
+				"name": "Density",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 4
+			},
+			{
+				"name": "Sulphur",
+				"type": "varchar"
+			},
+			{
+				"name": "TAN",
+				"type": "varchar"
+			},
+			{
+				"name": "NetCumulativeBalance",
+				"type": "decimal",
+				"precision": 19,
+				"scale": 4
+			},
+			{
+				"name": "BitumenCapacity",
+				"type": "decimal",
+				"precision": 16,
+				"scale": 1
+			},
+			{
+				"name": "StreamCapacity",
+				"type": "decimal",
+				"precision": 16,
+				"scale": 1
+			},
+			{
+				"name": "ProjectStatus",
+				"type": "varchar"
+			},
+			{
+				"name": "Project_SusCancDeffered",
+				"type": "varchar"
+			},
+			{
+				"name": "ProjectIndefinitely",
+				"type": "varchar"
+			},
+			{
+				"name": "ProjectSource",
+				"type": "varchar"
+			},
+			{
+				"name": "Deleted",
+				"type": "bit"
+			},
+			{
+				"name": "DeletedDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "AdditionalNotes",
+				"type": "varchar"
+			},
+			{
+				"name": "ProjectPayoutDate",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "LastUpdateTime",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "RunId",
+				"type": "uniqueidentifier"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "OSProjects"
+		}
+	}
+}
