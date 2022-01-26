@@ -1,0 +1,69 @@
+{
+	"name": "ds_parScenario",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_raw_data",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "rfm"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dbo__OS_Scenario.parquet",
+				"folderPath": "rfm/parquet",
+				"fileSystem": "raw"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "OS_Scenario_ID",
+				"type": "INT32"
+			},
+			{
+				"name": "OSR_Project_Number",
+				"type": "UTF8"
+			},
+			{
+				"name": "Scenario",
+				"type": "UTF8"
+			},
+			{
+				"name": "Year_Submitted",
+				"type": "INT32"
+			},
+			{
+				"name": "Version",
+				"type": "INT32"
+			},
+			{
+				"name": "AsOfDate",
+				"type": "INT96"
+			},
+			{
+				"name": "Comments",
+				"type": "UTF8"
+			},
+			{
+				"name": "CreatedDate",
+				"type": "INT96"
+			},
+			{
+				"name": "CreatedBy",
+				"type": "UTF8"
+			},
+			{
+				"name": "Deleted",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "DeletedDate",
+				"type": "INT96"
+			}
+		]
+	}
+}
