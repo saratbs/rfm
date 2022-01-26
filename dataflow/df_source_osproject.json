@@ -16,7 +16,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "ds_parScenario",
+						"referenceName": "ts_target_scenario",
 						"type": "DatasetReference"
 					},
 					"name": "SourceScenario"
@@ -28,7 +28,7 @@
 					"name": "Join1"
 				}
 			],
-			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceOSProjects\nsource(output(\n\t\tOS_Scenario_ID as integer,\n\t\tOSR_Project_Number as string,\n\t\tScenario as string,\n\t\tYear_Submitted as integer,\n\t\tVersion as integer,\n\t\tAsOfDate as timestamp,\n\t\tComments as string,\n\t\tCreatedDate as timestamp,\n\t\tCreatedBy as string,\n\t\tDeleted as boolean,\n\t\tDeletedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceScenario\nSourceOSProjects, SourceScenario join(ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1"
+			"script": "source(output(\n\t\tOS_Project_Overview_ID as integer,\n\t\tOS_Scenario_ID as integer,\n\t\tProject_Flag as string,\n\t\tYear_Submitted as integer,\n\t\tProject_Name as string,\n\t\tOSR_Project_Number as string,\n\t\tOperator as string,\n\t\tProject_Area_Region as string,\n\t\tScenario as string,\n\t\tPhase as string,\n\t\tTechnology as string,\n\t\tDensity as decimal(18,12),\n\t\tSulphur as string,\n\t\tTAN as string,\n\t\tNet_Cumulative_Balance as decimal(19,4),\n\t\tCapacity_Bitumen as decimal(16,1),\n\t\tCapacity_Steam as decimal(16,1),\n\t\tProject_Status as string,\n\t\t{Project_Suspended/Cancelled/Deferred} as string,\n\t\tProject_Indefinitely as string,\n\t\tProject_Source as string,\n\t\tDeleted as boolean,\n\t\tDeletedDate as timestamp,\n\t\tAdditionalNotes as string,\n\t\tProjectPayoutDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> SourceOSProjects\nsource(output(\n\t\tOSScenarioKey as integer,\n\t\tOSRNumber as string,\n\t\tScenario as string,\n\t\tYearSubmitted as integer,\n\t\tVersion as integer,\n\t\tAsOfDate as timestamp,\n\t\tComments as string,\n\t\tCreatedDate as timestamp,\n\t\tCreatedBy as string,\n\t\tDeleted as boolean,\n\t\tDeletedDate as timestamp,\n\t\tLastUpdateTime as timestamp,\n\t\tRunId as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> SourceScenario\nSourceOSProjects, SourceScenario join(OSR_Project_Number == OSRNumber\n\t&& ERROR_FUNCTION('') == ERROR_FUNCTION(''),\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1"
 		}
 	}
 }
