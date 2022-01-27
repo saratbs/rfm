@@ -24,7 +24,7 @@
 								"type": "Expression"
 							},
 							"pRunId": {
-								"value": "'@{guid(toUpper(pipeline().RunId))}'",
+								"value": "'@{toUpper(pipeline().RunId)}'",
 								"type": "Expression"
 							}
 						}
