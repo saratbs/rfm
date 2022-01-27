@@ -37,14 +37,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"paramLastUpdateDateTime": {
-				"type": "string"
-			},
-			"paramRunId": {
-				"type": "object"
-			}
-		},
 		"folder": {
 			"name": "rfm"
 		},
