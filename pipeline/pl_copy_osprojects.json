@@ -17,7 +17,17 @@
 				"typeProperties": {
 					"dataflow": {
 						"referenceName": "df_source_osproject",
-						"type": "DataFlowReference"
+						"type": "DataFlowReference",
+						"parameters": {
+							"pLastUpdateDateTime": {
+								"value": "@pipeline().TriggerTime",
+								"type": "Expression"
+							},
+							"pRunId": {
+								"value": "'@{pipeline().RunId}'",
+								"type": "Expression"
+							}
+						}
 					},
 					"compute": {
 						"coreCount": 8,
